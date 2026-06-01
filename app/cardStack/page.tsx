@@ -46,13 +46,13 @@ function Page() {
     const [cards,setCards]=React.useState<Card[]>(card)
 
     return (
-        <div className='min-w-4xl mx-auto h-screen flex bg-blue-100 flex items-center'  >
-        <div className='flex w-[300] h-[400] gap-4 p-4  mx-auto relative bg-red-100'>
+        <div className='min-w-4xl mx-auto h-screen flex  flex items-center'  >
+        <div className='flex w-[300] h-[400] gap-4 p-4  mx-auto relative'>
             {cards.map((item, index) => (
-                <Card key={index} title={item.title} image={item.image} index={index} total={cards.length} 
+                <Card key={item.title} title={item.title} image={item.image} index={index} total={cards.length}          
                 sendBack={index===0 ? sendBack : undefined} />
             ))}
-        </div> 
+        </div>  
         </div>
     )
 }
@@ -62,12 +62,14 @@ function Card({title,image,index,total,sendBack
     const updateIndex=()=>{
         console.log("drag ended")
         if(!isTop || !sendBack) return ;
-       sendBack()
+       if (Math.abs(x.get()) > 50) {
+        sendBack();
+    }
         animate(x,0,{
-            duration:0.5,
+           
             type:'spring',
-            stiffness:300,
-            damping:20
+            stiffness:380,
+            damping:32
                
         })
     }
@@ -75,7 +77,7 @@ function Card({title,image,index,total,sendBack
     const x=useMotionValue(0);
     const rotate=useTransform(x,[-100,100],[-20,20])
   return (
-    <motion.div className={cn('w-[200px] h-[300px] bg-gray-200 rounded-lg shadow-md overflow-hidden absolute top-20  left-13 cursor-pointer ')}
+    <motion.div className={cn('w-[250px] h-[300px] bg-gray-200 rounded-lg shadow-md overflow-hidden absolute top-20  left-13 cursor-pointer ')}
    style={{ 
     zIndex: total-index,
     rotate:rotate,
