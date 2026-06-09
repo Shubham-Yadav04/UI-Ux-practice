@@ -15,8 +15,14 @@ function Page() {
     
     
   return (
-    <div className='bg-[#F8F9FB] w-full h-fit flex flex-col  items-center gap-50 py-10'>
-        <h1 className="text-5xl text-black font-mono font-black tracking-[-0.08em] w-full mt-10 text-center">AMSTERDAM CYCLISTS</h1>
+    <div className='bg-[#F8F9FB] w-full h-fit flex flex-col items-center '>
+        <div className=" h-[50vh]  flex justify-center items-center">
+        <h1 className="  text-black text-[clamp(36px,8vw,72px)]  uppercase font-black tracking-[-0.1em] w-fit  text-center"
+        style={{
+            fontFamily:"sans-serif",
+            
+        }}>Amsterdam Cyclists</h1>
+        </div>
 <div className='w-full h-fit flex flex-col gap-10 py-10'>
     {imgs.map((img,index)=>
 <ImgScroll key={index} src={img} />
@@ -33,11 +39,11 @@ const ImgScroll=({src}:{src:string})=>{
     target:ref,
     offset:["start end","end center"]
     });
-    const scale= useTransform(scrollYProgress,[0,0.6,1],[20,600,600])
+    const clip= useTransform(scrollYProgress,[0,0.6,1],["inset(0% 45% 0% 45%)","inset(0% 0% 0% 0%)","inset(0% 0% 0% 0%)"])
 
     return (
-        <motion.div className="mx-auto flex flex-col justify-center items-center bg-blue-200   h-fit " ref={ref}   style={{width:scale}}  >
-        <Image src={src} alt="" width={700} height={500} className=' object-center w-[70vw] h-auto rounded-b-lg '
+        <motion.div className="mx-auto flex flex-col justify-center items-center h-fit " ref={ref}   style={{clipPath:clip}}  >
+        <Image src={src} alt="" width={700} height={500} className=' h-auto rounded-b-lg '
         />
     
     
